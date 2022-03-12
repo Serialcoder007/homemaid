@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALCULATOR</title>
+</head>
+<body>
+    
+<style>
+    #buttn{
+        margin:10px;
+        padding:15px;
+        font-family:'Courier New', Courier, monospace;
+        background-color: rgb(255, 0, 255);
+        color: white;
+        font-weight: bold;
+    }
+    div{
+        background-color: aquamarine;
+    }
+</style>
+
+    <div>
+        <p style="margin:0px 660px;font-size:30px">CALCULATOR</p><br>
+        <div class="display" style="font-size:20px; margin:0px 700px"></div>
+        <table id="keypad" style="font-size:20px; margin:auto" >
+            <tr>
+                <td><button id="buttn">C</button></td>
+                <td><button id="buttn">%</button></td>
+                <td><button id="buttn">DEL</button></td>
+                <td><button id="buttn">/</button></td>
+            </tr>
+            <tr>
+                <td><button id="buttn">7</button></td>
+                <td><button id="buttn">8</button></td>
+                <td><button id="buttn">9</button></td>
+                <td><button id="buttn">*</button></td>
+            </tr>
+            <tr>
+                <td><button id="buttn">4</button></td>
+                <td><button id="buttn">5</button></td>
+                <td><button id="buttn">6</button></td>
+                <td><button id="buttn">-</button></td>
+            </tr>
+            <tr>
+                <td><button id="buttn">1</button></td>
+                <td><button id="buttn">2</button></td>
+                <td><button id="buttn">3</button></td>
+                <td><button id="buttn">+</button></td>
+            </tr>
+            <tr>
+                <td><button id="buttn">00</button></td>
+                <td><button id="buttn">0</button></td>
+                <td><button id="buttn">.</button></td>
+                <td><button id="buttn">=</button></td>
+            </tr>
+        </table>
+        <script>
+            var keypad = document.getElementById('keypad');
+            console.log(keypad);
+            keypad.addEventListener('click', display);
+            var prev_click;
+            function display(arg) {
+                var button_text;
+                let screen = document.querySelector('.display');
+                if (arg.target.id == 'buttn') {
+                    button_text = arg.target.innerHTML;
+                    if (prev_click == '=') {
+                        if (button_text != 'C') {
+                            screen.innerHTML = button_text;
+                        }
+                        else {
+                            screen.innerHTML = '';
+                        }
+                        prev_click = null;
+                    }
+                    else {
+                        if (button_text == 'C') {
+                            screen.innerHTML = "";
+                        }
+                        else if (button_text == 'DEL') {
+                            var content = screen.innerHTML
+                            screen.innerHTML = content.substring(0, content.length - 1);
+                        }
+                        else if (button_text == '=') {
+                            screen.innerHTML = eval(screen.innerHTML);
+                            prev_click = button_text;
+                        }
+                        else {
+                            screen.innerHTML += button_text;
+                        }
+                    }
+                    console.log(button_text);
+                    console.log(prev_click);
+                }
+            }
+        </script>
+    </div>
+</body>
+
+</html>
